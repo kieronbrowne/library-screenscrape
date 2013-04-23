@@ -65,13 +65,13 @@ $data=curl_exec($ch);
 //echo $data;
 
 $matches = array();
-preg_match_all('/<tr valign="top">.*<td.*>.*<\/td><td.*><a .*>(.*)<\/a>.*<\/td><td .*>(.*)<br \/><\/td>.*<\/tr>/s', $data, $matches);
+preg_match_all('/<tr valign="top">.*?<td.*?\/td><td.*?><a.*?>(.*?)<\/a>.*?<\/td><td.*?>(.*?)<.*?<\/tr>/', $data, $matches);
 
 for ($i = 0; $i < count($matches[0]); $i++) {
 	$book = trim($matches[1][$i]);
 	$dueDate = date_create_from_format('d M Y', $matches[2][$i]);
 	$daysRemaining = -$dueDate->diff(new DateTime())->format('%r%a');
-	printf("%s (%s) due back in %s days\n", $book, $author, $daysRemaining);
+	printf("'%s' due back in %s days\n", $book, $daysRemaining);
 }
 
 curl_close($ch);
